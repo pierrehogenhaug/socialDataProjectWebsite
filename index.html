@@ -6,6 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
     
 
     
@@ -122,101 +125,6 @@
 </svg>
 
 
-    <!-- <header class="header">
-  <div class="container">
-    <a class="logo" href="/">
-  <img src="/assets/logos/logo.svg" alt="Alembic logo">
-</a> -->
-
-
-    
-<!-- <nav class="nav  nav--header">
-  <ul class="list  list--nav">
-    
-
-      
-
-      <li class="item  item--nav  item--current">
-        <a href="/">Home</a>
-      </li>
-    
-
-      
-
-      <li class="item  item--nav">
-        <a href="/elements/">Elements</a>
-      </li>
-    
-
-      
-
-      <li class="item  item--nav">
-        <a href="/blog/">Blog</a>
-      </li>
-    
-
-      
-
-      <li class="item  item--nav">
-        <a href="/categories/">Categories</a>
-      </li>
-    
-
-      
-
-      <li class="item  item--nav">
-        <a href="/search/">Search</a>
-      </li>
-    
-
-      
-
-      <li class="item  item--nav">
-        <a href="https://github.com/daviddarnes/alembic">Fork Alembic</a>
-      </li>
-    
-  </ul>
-  <button class="button  button--nav" aria-label="Menu toggle">
-    <svg width="16" height="16" class="icon  icon--nav" role="img" alt="Menu"><title>Menu</title>
-<use xlink:href="#nav" fill="CurrentColor"></use></svg>
-
-  </button>
-</nav> -->
-
-<!-- 
-<script type="text/javascript">
-  // Get list and button
-  const navList = document.querySelector('.header .list--nav')
-  const button  = document.querySelector('.header .button--nav')
-
-  // Hide nav and apply toggle
-  const collapseNav = () => {
-    if (document.body.clientWidth < 640) {
-      navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`)
-    } else {
-      navList.removeAttribute('style')
-    }
-
-    button.onclick = () => {
-      navList.style.setProperty('transition', `margin .1s`)
-      if (navList.style.getPropertyValue('--listHeight')) {
-        navList.style.removeProperty('--listHeight')
-      } else {
-        navList.style.setProperty('--listHeight', `-${navList.offsetHeight}px`)
-      }
-    }
-  }
-
-  collapseNav()
-
-  // Check on resize if to collapse nav
-  window.addEventListener('resize', () => {
-    collapseNav()
-  })
-</script> -->
-
-  <!-- </div> -->
-
   
 
 
@@ -226,7 +134,7 @@
     <div class="container  typeset">
       <br><br><br>
       <h2 id="alembic">Social Data Analysis 2023</h2>
-<p style="color: black; font-weight: bold;">This web page contains the 2nd assignment for the social data analysis course.</p>
+<p style="color: black; font-weight: bold;">This web page contains the final project for the social data analysis course.</p>
 
     </div>
   </div>
@@ -240,69 +148,188 @@
 
   <article class="article  article--page  content  typeset">
 
-    <h1>About the project</h1>
+    <h2>About the project</h2>
 
-    <p>This project analyses the crime dataset for the city of San Francisco. The dataset includes crime records from 2003 to 2017 which will be used to create visualisations and draw conclusions.</p>
+    <p>This project analyzes the relationship between transportation methods and air quality in large urban areas. Specifically, the dataset includes transportation and air quality measures for 35 large US cities from year 2010 to 2021.</p>
 
-<!-- <p><a class="button" href="https://github.com/daviddarnes/alembic" style="background: #0366d6">Fork it  <svg width="16" height="16" class="icon  icon--github" role="img" alt="github"><title>Code</title>
-<use xlink:href="#github" fill="CurrentColor"></use></svg>
-</a> -->
-<h1>Analysis</h1>
-<p>Show how the vehicle theft in San Francisco developed over the years. </p>
-<img src="graph1.png" alt="firstGraph">
+
+
+<h2>Motivation</h2>
+<p>Air pollution is a significant environmental problem that affects the health and well-being of urban populations worldwide. Among the many sources of air pollution, transportation is a major contributor, particularly in urban areas. According to a case study conducted in the Greater Manchester region [1], road transport has significant impacts on urban air quality. Another recent study [2] explored the impact of public transportation on carbon emissions and found that it is an important factor to consider from the perspective of energy consumption.
+<br><br>Given the severity of the issue, we find it meaningful to identify cities which have mild/severe pollution and investigate whether we see specific patterns amongst them. To get an idea of the issue in some cities, we display the heatmap that motivated us to further analyze this data:
+
+<figure>
+    <iframe src="aqiheatmap.html" style="display: block; margin: auto; width:1200px; height:615px;"></iframe>
+  </div>
+  <figcaption style="text-align:center;">Heatmap: Air Quality in US Cities (warmer is worse)</figcaption>
+</figure><br>
+
+We will get more into details on this heatmap and the cities with poor/milder air quality later. In this story, we aim to identify cities with varying pollution levels and observe any patterns. We'll analyze the effects different transportation methods have on air quality across US cities, investigating transport means used in cities with better air quality for potential solutions. We'll research correlations between transportation and air quality, hoping our findings can help reduce urban air pollution and create healthier living environments.</p>
+
+<h2>Dataset</h2>
+
+<p>The data we've chosen to work with is <a href="https://bigcitieshealthdata.org/">The Big Cities Health Inventory (BCHI)</a>. This is the official description of our dataset:
+<blockquote style="font-style: italic; border-left: 2px solid #000; padding-left: 10px;">BCHI contains over 120 metrics across key public health categories, chosen for their impact on morbidity, mortality, and community well-being in the US. Metrics must meet substantive criteria relating to public health relevance, policy benchmarking, or demographic/socioeconomic disparity highlighting, as well as coverage and standardization criteria. The platform prioritizes publicly available, city-level data, with information from 2010 to 2021. </blockquote>
+</p>
+
+<p>We have cut the very large dataset to the bone and chosed the exact variables we wanted. The variables we use in our analysis are:</p>
+<h4>Target Variable</h4>
 <br>
-<h3>Based on the data the following observations were made:</h3>
+<strong>Air Quality</strong>: Calculated using Air Quality Index (AQI) published by the Environmental Protection Agency. The 'Air Quality' value is calculated as
+$$
+\text{Air Quality} = \frac{\text{No. of days with AQI} > 50}{\text{No. of days recorded}}
+$$
+<p><span style="font-style: italic;">For more details, please refer to p. 15 in data description attached on the handin.</span> </p>
+
+<h4>Independent Variables</h4>
+<br>
+<strong>Walking to Work</strong>  and <strong>Riding Bike to Work</strong>: Calculated using the U.S. Census Bureau’s American Community Survey (ACS) 5-year estimates and is calculated from table B08137 as,
+$$
+\text{Walking to Work} = \frac{\text{No. of citizens who reported walking to work}}{\text{No. of workers ages 16+ that did not work from home}}
+$$
+<p>and similarly for <strong>Bike to Work</strong>  [<span style="font-style: italic;">p. 16 in data description</span>].</p>
+
+
+<strong>Public Transportation Use</strong> and <strong>Drives Alone to Work</strong>: Calculated using the U.S. Census Bureau’s American Community Survey (ACS) 5-year estimates. The value is calculated as
+$$
+\text{Public Transportation Use} = \frac{\text{No. of citizens who reported using public transport}}{\text{No. of workers ages 16+ that did not work from home}}
+$$
+<p> and similarly for <strong>Drives Alone to Work</strong></p>
+
+
+<h2>Exploratory Data Analysis</h2>
+
+We have a total of 35 cities in our dataset. To give you a quick idea, take a look around the following map:
+
+<br>
+
+<figure>
+  <iframe src="usmappins.html" style="display: block; margin: auto; width:850px; height:650px;"></iframe>
+  <figcaption style="text-align:center;">US Map with Pins for Cities in our Data</figcaption>
+</figure><br>
+
+<br>
+
+Note: <span style="font-size: smaller;">We created a heatmap over the Air Quality value for each city for each year in our dataset. Unfortunately for us, that type of interactive Folium plots was not exportable to HTML. We still have the visualization in our Jupyter Notebook so reach out to the author of this webpage to gain access to the Notebook. </span>
+
+
+
+<h3>Correlation</h3>
 <p>
-<ul style="padding-left: 4%;">
-  <li>Based on the data the following observations were made:</li>
-  <li>The highest amount of daily vehicle thefts in these years is: 81</li>
-  <li>The lowest amount of daily vehicle thefts in these years is: 16
-  </li>
-  <li>The overall highest amount of daily vehicle thefts is: 81
-  </li>
-  <li>The overall lowest amount of daily vehicle thefts is: 1
-  </li>
-</ul>
+We are interested in looking at correlations between our independent variables and the dependent variable.</p>
+
+<figure>
+  <img src="corrmatrix.png">
+  <figcaption style="text-align:center;">Correlation Matrix of our Variables</figcaption>
+</figure>
+<br>
+
+<p>At first glance, there does not seem to be large correlation between transportation methods and Air Quality. We do however see, that transportation methods have strong positive and negative correlation. We already know that we will use the predictor variables later in analysis. To avoid violating <a href="https://www.albert.io/blog/key-assumptions-of-ols-econometrics-review/">OLS Assumptions</a> we therefore choose to combine some of them. For each of our 35 cities, we have 4 transportation variables that have one value per year (after some preprocessing at least). We want to combine <strong> Walking to Work</strong>, <strong> Riding Bike to Work</strong> and <strong> Public Transportation Use</strong> into one we call <strong> Walk_Bike_Public</strong>. In our analysis, we will use this combined feature as a measure for sustainable transportation and compare it to <strong> Drives_Alone</strong> (Driving Alone to Work).</p>
+
+<p> As it turns out the combined feature will help us interpretting clusters as we see more clear patters when we have fewer features.</p>
+
+<h2>Clustering based on Transportation Methods</h2>
+<p>We want to see whether there are any meaningful clusters of cities based on transportation methods.</p> 
+
+<p>We find the <strong>optimal number of cluster</strong> using K-Means clustering and by plotting the within cluster variation for different Ks. Using the elbow method, we found that around 3 clusters was fitting.</p>
+
+<h4>Discovering the 3 Clusters</h3>
+
+<p>
+<figure>
+    <img src="clustermean.png">
+    <figcaption style="text-align:center;">Correlation Matrix of our Variables</figcaption>
+</figure>
 </p>
 
-<h3>Graph Interpretation:</h3>
-<p>Thanks to the use of the calendar plot, the data for the category “VEHICLE THEFT” is shown as a combination of a heatmap and a calendar visualization. 
-  It shows the amounts of crimes per each day in a calendar view. The overall view shows the years grouped and furthermore they are divided vertically in months. They are then divided in weeks which enable us to identify patterns and anomalies within the data easily. 
-  
-  Immediately it can be noticed how the first three years, from 2003 until 2005, have a higher amount of vehicle thefts within the San Francisco area. This is confirmed as the <a href="https://www.macrotrends.net/cities/us/ca/san-francisco/motor-vehicle-theft-rate-statistics">website Macro Trends</a> where it can be seen that the years of the early 2000s suffered of the highest crime. It slowly declines over the years, and it increases again in 2015 with the highest of 801 vehicle thefts in that year. It is however lower that the first peak which happens in 2005 with 1091 vehicle thefts in the San Francisco area. 
-  
-  By looking at our calendar plot, overall, the lowest amount of vehicle theft crimes is found to be 1 and it happens on the third of May of 2011; while the highest amount is 81 and it happens on the 21st of January of 2005. Respectively, for the smaller range of year that we are considering, the highest value happens on 21st of January of 2005 and the lowest amount is 16 which happens on the 31st of January 2003. </p>
+<p>We discover some interesting relationships between transportation methid and air_value within the clusters. Recall, a high air_value is a sign of poor air quality. For cluster 0, we see that air_value is the highest, Drives_Alone is the highest and Walk_Bike_Public is the lowest. We wonder which cities fall into this cluster.</p>
 
-<h3>The Map of San Francisco</h3>
-<iframe src="map222.html" style="width:100%; height:20%;"></iframe>
-<p>The immidiate impression is, that <i>Tenderloin</i> is the best place to park your car, while <i>Ingleside</i> is the most risky district. However, <i>Tenderloin</i> is a substantially smaller area than the remaining districts, so it could be relevant to also account for how big/populated the districts are. Furthermore, <i>Tenderloin</i> appears to be more centrally placed then <i>Ingleside</i>, which could mean that there aren't as many parking spots there, as in the city fringe. Thus, it might simply come down to how many cars there are available for stealing in the given districts. </p>
+<p><strong>In cluster 0 we have 24 cities</strong>: 1) Austin, TX; 2) Charlotte, NC; 3) Cleveland, OH; 4) Columbus, OH; 5) Dallas, TX; 6) Denver, CO; 7) Detroit, MI; 8) El Paso, TX; 9) Fort Worth, TX; 10) Indianapolis, IN; 11) Kansas City, MO; 12) Las Vegas, NV; 13) Long Beach, CA; 14) Los Angeles, CA; 15) Louisville, KY; 16) Memphis, TN; 17) Milwaukee, WI; 18) Oklahoma City, OK; 19) Phoenix, AZ; 20) San Antonio, TX; 21) San Diego, CA; 22) San Jose, CA; 23) Tucson, AZ.</p>
+
+<p><strong>In cluster 1 we have 7 cities</strong>: 1) Baltimore, MD; 2) Chicago, IL; 3) Minneapolis, MN; 4) Oakland, CA; 5) Philadelphia, PA; 6) Portland, OR; 7) Seattle, WA.</p>
+
+<p><strong>In cluster 2 we have 4 cities</strong>: 1) Boston, MA; 2) New York City, NY ; 3) San Francisco, CA; 4) Washington, DC</p>
 
 
-<p>The initial impression is that the district <i>Tenderloin</i> is the best place to park your car, while <i>Ingleside</i> is the most risky district. The districts with the safest areas from the riskiest ones are in the following order: <br>
-<ul style="padding-left: 4%;">
-  <li>Tenderloin</li>
-  <li>Park</li>
-  <li>Richmond</li>
-  <li>Central</li>
-  <li>Southern</li>
-  <li>Taraval</li>
-  <li>Northern</li>
-  <li>Bayview</li>
-  <li>Ingleside</li>
 
-</ul></p>
-<p>However,  <i>Tenderloin</i>  is a substantially smaller area than the other districts considered, so it could be relevant to also account for how big/populated the districts are. Furthermore, the  <i>Tenderloin</i>  district appears to be more centrally placed than the `Ingleside` one, which could mean that there aren't as many parking spots there, as in the city area. Therefore, it might simply come down to how many cars are “available” for stealing in the given districts. 
+<h2>Regression based on Clusters</h2>
+
+<p>As already mentioned, we're facing the challenge that transportation data changes every 5 years while the air quality data changes annually. One way to handle this is to assume that the transportation data is constant for the 5-year period until the next data point. This is what we did, and in the following we will construct OLS regression models based on our differnet clusters and transportation methods.<stron>Before we do anything else,</stron> we will construct a regression model on our unclustered data for all transportation methods to test our previous multicollinearity hypothesis.</p>
+
+<p>These are the results from the first regression model,</p>
+
+<figure>
+  <img src="OLS.png">
+  <figcaption style="text-align:center;">OLS Regression Unclustered Data with All Transportation Methods</figcaption>
+</figure>
+<br>
+
+<p>In this model, neither predictor variable (Walk_Bike_Public and Drives_Alone) is significantly associated with air_value (p-values > 0.05). The model overall explains about 8.3% of the variance in air_value (adjusted R-squared = 0.083). The large condition number suggests issues with multicollinearity as expected.</p>
+
+
+
+<p><strong>In cluster 0</strong>, we see a similar patterns. Both Walk_Bike_Public and Drives_Alone have a relationship with air_value, but when they are both included in the model, the relationship of Drives_Alone with air_value becomes non-significant. The R-squared values for all three models were relatively low, indicating that the models only explain a small portion of the variation in the air quality index.</p>
+<p><strong>In cluster 1</strong>, the results are again similar with only small differences. The regression with both predictor variables (Walk_Bike_Public and Drives_Alone) in the model yields an adjusted R-squared of 0.131, which means that these variables together explain approximately 13.1% of the variance in air_value. However, as in the previous results, the coefficient for Drives_Alone is not statistically significant (p-value > 0.05), indicating that it may not be a useful predictor when Walk_Bike_Public is also included in the model.</p>
+
+<p><strong>In cluster 2</strong>, the results again show similar patterns.</p>
+
+<p>The overall highlights of all the regressions are:
+  <ul>
+    <li><strong>Cluster 0:</strong>
+      <ul>
+        <li>The coefficient of <em>Walk_Bike_Public</em> in the combined model is significant (p = 0.025).</li>
+        <li>The coefficient of <em>Drives_Alone</em> in the model where it is the only predictor is significant (p = 0.001).</li>
+      </ul>
+    </li>
+    <li><strong>Cluster 1:</strong>
+      <ul>
+        <li>The coefficients of both <em>Walk_Bike_Public</em> and <em>Drives_Alone</em> in the combined model are significant (p = 0.025 for <em>Walk_Bike_Public</em> and p = 0.010 for <em>Drives_Alone</em>).</li>
+      </ul>
+    </li>
+    <li><strong>Cluster 2:</strong>
+      <ul>
+        <li>No significant results are found.</li>
+      </ul>
+    </li>
+  </ul>
+
+All the OLS Regressions and their results are in the Jupyter Notebook that this project was built on.</p>
+
+<h2>Discussion</h2>
+
+Our project was all about figuring out if there's a link between how people commute and air quality in 35 big US cities. We found some interesting patterns, but there are a few things that might have affected our results.
+
+
+<h4>Dataset Limitations</h4>
+<p>The target variable in our dataset, <strong>Air Quality</strong> is a figure that is reported at a yearlt frequency. Our independent variables however, are calculated using 5-year estimates, i.e. we only have two distinct values in an 11 years time period. This forced us to do the assumption that transportation methods are constant 5 years at a time. This is most likely very inacurate.
 </p>
 
-<p>The website  <a href="https://thebolditalic.com/more-cars-being-stolen-in-these-sf-neighborhoods-the-bold-italic-san-francisco-4900f870e0e9">“The Bold Italic”</a>
-is also confirming that one of the district to be aware of is `Park` district, which in 2013 had an increase of approximately 33% vehicle thefts compared to the previous year. This shows how over the years the districts might “suffer” of an increase in vehicle theft. IN the case of the `Park` district, it is possible that it had a really low amount of vehicle thefts early in the 2000s and then a sudden increase over the years. Overall the amount might still be lower compared to the others.</p>
+<h4>Explained Variance</h4>
+<p>
+The independent variable that explains most of the variance in air_value was the Walk_Bike_Public feature in cluster 1 that displayed statistically significance (p-value < 0.05) and explained around 14% of the variance. This suggests that we should include different independent variables to try and capture more of the variation in air_value. Factors like industrial emissions, home heating, and power plants that can also impact air quality but were not considered in our analysis. Including these in future studies would help to get a better understanding of air pollution.</p>
+
+<h4>Explained Variance</h4>
+<p>
+This shouldn't come as a surprise but one transportation method e.g. driving alone to work has strong negative correlation to walking to work. This posed some challenges in that we couldn't include all of our variables in regression (as this would break OLS assumptions). </p>
+
+
+<h2>Conclusion</h2>
+
+What we found from our project is that the way people travel and air quality in cities are indeed connected. We saw specific patterns among cities, and we found that sustainable ways of traveling (like walking, biking, or public transport) can be linked to better air quality in some places.
+
+However, our models only explained a small part of the changes in air quality, suggesting that other factors we didn't consider could be playing a part in air pollution levels. Plus, the limitations in our data and the strong links between certain ways of traveling make it hard to study urban air pollution.
+
+But even with these limitations, our findings show that promoting sustainable ways of traveling can help reduce air pollution in cities. As more and more people live in cities, it's crucial to encourage sustainable travel and keep researching its effects on air quality.
+
+
+
+
+
+
+
 <br>
-<h3>Overview of crimes per hour</h3>
-<iframe src="test.html" style="width:180%; height: 7%;"></iframe>
-<p>This is an interactive graph where by selecting any crime type from the list it can be visualized the frequence of it occurence during all hours of the day. </p>
-<br>
-<br>
-<br>
+
+
 </main>
   </body>
 
